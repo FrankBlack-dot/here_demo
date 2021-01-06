@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <title>BASF Fire Departement</title>
+    <script src="https://account.here.com/js/sdk/sso.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css" />
+    <link rel="stylesheet" type="text/css" href="demo.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="../template.css" />
+    <script type="text/javascript" src='../test-credentials.js'></script>    
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://js.api.here.com/v3/3.0/mapsjs-clustering.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://js.api.here.com/v3/3.0/mapsjs-data.js"></script>
+    			<script type="text/javascript" charset="UTF-8" src="https://js.api.here.com/v3/3.0/mapsjs-pano.js"></script>
+    <style type="text/css">
+      .directions li span.arrow {
+        display:inline-block;
+        min-width:28px;
+        min-height:28px;
+        background-position:0px;
+        background-image: url("https://heremaps.github.io/maps-api-for-javascript-examples/map-with-route-from-a-to-b/img/arrows.png");
+        position:relative;
+        top:8px;
+      }
+      .directions li span.depart  {
+        background-position:-28px;
+      }
+      .directions li span.rightturn  {
+        background-position:-224px;
+      }
+      .directions li span.leftturn{
+        background-position:-252px;
+      }
+      .directions li span.arrive  {
+        background-position:-1288px;
+      }
+      </style>
+      <script src="assets/application.js"></script>    
+      <script src="assets/center-utils.js"></script>
+      <script src="assets/pde-layer-provider.js"></script>
+  </head>
+  <body id="markers-on-the-map">
+    
+    <div class="page-header">
+        <h1>Map with Driving Route from Fire Station  to Friesenheimer Insel</h1>
+        <p>Request a driving route display it on the map</p>
+        <p>This example calculates the fastest truck route from the <b>BASF Site</b> 
+        to <b>Friesenheimer Insel</b> 
+      </i>, and displays it on the map.</p>
+    </div>
+
+    <div class="wrapper">
+    
+        <div class="box">
+        Select Departure:
+        <select id="exampleSelector" class="form-control" onchange="exampleSelect(0)">
+                <option value="firestation">BASF Fire Station</option>
+                <option value="tor13">Tor 13</option>
+        </select>
+        <input type="checkbox" id="showroute" value="on" checked="checked" onchange="showHideRoute();"> Show Hide Route
+        </div>
+        <div class="box">
+        Vehicle Type:
+        <select id="vehicleType" class="form-control" onchange="handleVehicleSpecChanged()">
+            <option value="0" >Car</option>
+            <option value="1">Transporter</option>
+            <option value="2" selected="true">Truck (7.5t)</option>
+            <option value="3">Truck (11t)</option>
+            <option value="4">Truck with one trailer (38t)</option>
+            <option value="5">Trailer Truck (40t)</option>
+            <option value="6">Car with Trailer</option>
+            <option value="7">Bus</option>
+            <option value="8">Emergency</option>
+            <option value="9">Pedestrian</option>
+            <option value="10">Pedestrian / Emergency</option>
+            <option value="11">Taxi</option>
+          </select>
+          </div>
+    
+
+    <div class="box">
+    
+      <input type="checkbox" id="showManeuvers" value="on" onchange="maneuversSelect();"> Maneuvers
+      <input type="checkbox" id="truckrestr" value="on" checked="checked" onchange="showHideTruckMapDisplay();"> Truck restrictions
+      <input type="checkbox" id="linkTime" value="on" onchange="timeAlongRouteSelect();"> Time along route
+      <input type="checkbox" id="showWarnings" value="on" checked="checked" onchange="warningsSelect();"> Warnings
+    </div>
+      <div class="box">
+      <b>Historic Traffic Pattern</b>
+      </div>
+      <div class="box">
+        <b>Simulation: </b><span id="simulation"></span>
+      </div>
+    </div>
+    <div class="wrapper">
+      
+        <div class="box">
+        
+          <input type="hidden" id="endpoint" value="https://pde.api.here.com" autocomplete="off"/>
+          Pattern on: <input type="checkbox" id="PatternOn" value="on" checked="checked" onchange="showHideTrafficPattern();">
+          <select id="day">
+          <option value="0">Sunday</option>
+          <option value="1">Monday</option>
+          <option value="2">Tuesday</option>
+          <option value="3">Wednesday</option>
+          <option value="4">Thursday</option>
+          <option value="5">Friday</option>
+          <option value="6">Saturday</option>
+          </select>
+         </div>
+         <div class="box">
+        <div id="patternTimeText">00:00</div>
+        <div id="bar" style="position:relative"></div>
+        </div>
+    
+      <div class="box"><b>Prediction</b> (select timeframe tbd.): <input type="checkbox" id="PredictionOn" value="on"></div>
+    </div>
+    <p></p>
+    <div id="map"></div>
+   <!-- <div id="panel"></div>-->
+
+    <script type="text/javascript" src='demo.js'></script>
+
+
+  </body>
+</html>
